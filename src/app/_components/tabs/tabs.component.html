@@ -1,0 +1,32 @@
+<div>
+
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>myAwesomeApp</span>
+      <span class="spacer"></span>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive">
+      {{link.label}}
+    </a>
+  </nav>
+
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
+
+<!-- menu -->
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="onLogout()">
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Salir</span>
+  </button>
+</mat-menu>

@@ -1,0 +1,44 @@
+<div class="login-wrapper">
+
+  <div class="header">
+    <img src="../../../assets/logos/logo.jpg" alt="">
+    <p class="mat-headline">Inicia Sesión</p>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Usuario</mat-label>
+      <input matInput placeholder="Ingresa tu usuario" formControlName="nomUsuario" required>
+      <button type="button" mat-button *ngIf="loginForm.controls['nomUsuario'].value" matSuffix mat-icon-button
+        (click)="loginForm.controls['nomUsuario'].reset()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-error *ngIf="loginForm.controls['nomUsuario'].invalid">{{getErrorMessage('nomUsuario')}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input [type]="passHide ? 'password' : 'text'" matInput placeholder="Ingresa tu contraseña"
+        formControlName="contrasena" required>
+      <button type="button" mat-button *ngIf="loginForm.controls['contrasena'].value" matSuffix mat-icon-button
+        (click)="passHide = !passHide">
+        <mat-icon>{{passHide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="loginForm.controls['contrasena'].invalid">{{getErrorMessage('contrasena')}}</mat-error>
+    </mat-form-field>
+
+    <div class="action-buttons">
+      <mat-progress-bar mode="indeterminate" color="accent" *ngIf="submitButton"></mat-progress-bar>
+      <button type="submit" mat-raised-button color="primary" [disabled]="submitButton">
+        {{submitButton ? 'INICIANDO SESIÓN...' : 'INICIA SESIÓN'}}
+      </button>
+    </div>
+
+  </form>
+
+  <div class="footer">
+    <button mat-button color="primary">Aviso de privacidad</button>
+  </div>
+
+</div>

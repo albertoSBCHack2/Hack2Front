@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
@@ -6,6 +6,7 @@ import { AppRoutingModule } from './_app-modules/app-routing.module';
 import { AppComponent } from './app.component';
 import 'hammerjs';
 import { HttpClientModule } from '@angular/common/http';
+import { MatProgressBarModule, GestureConfig } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -15,9 +16,12 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatProgressBarModule
   ],
-  providers: [],
+  providers: [
+    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -18,16 +18,13 @@ import {
     MatProgressBarModule
 } from '@angular/material';
 import { LayoutModule } from '../../../node_modules/@angular/cdk/layout';
-// import { FooterComponent } from '../_components/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '../../../node_modules/@angular/forms';
-// import { OfertaHeadersComponent } from '../_components/_oferta-educativa/oferta-headers/oferta-headers.component';
 import { CommonModule } from '../../../node_modules/@angular/common';
 import { RouterModule } from '../../../node_modules/@angular/router';
 
 @NgModule({
     declarations: [
-        // FooterComponent,
-        // OfertaHeadersComponent
+
     ],
     imports: [
         CommonModule,
@@ -69,9 +66,7 @@ import { RouterModule } from '../../../node_modules/@angular/router';
         LayoutModule,
         MatProgressSpinnerModule,
         MatProgressBarModule,
-        MatSidenavModule,
-        // FooterComponent,
-        // OfertaHeadersComponent
+        MatSidenavModule
     ],
     providers: []
 })
