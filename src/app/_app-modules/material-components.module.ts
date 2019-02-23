@@ -15,7 +15,8 @@ import {
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatSidenavModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatRippleModule
 } from '@angular/material';
 import { LayoutModule } from '../../../node_modules/@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule } from '../../../node_modules/@angular/forms';
@@ -45,7 +46,8 @@ import { RouterModule } from '../../../node_modules/@angular/router';
         LayoutModule,
         MatProgressSpinnerModule,
         MatProgressBarModule,
-        MatSidenavModule
+        MatSidenavModule,
+        MatRippleModule
     ],
     exports: [
         FormsModule,
@@ -66,7 +68,8 @@ import { RouterModule } from '../../../node_modules/@angular/router';
         LayoutModule,
         MatProgressSpinnerModule,
         MatProgressBarModule,
-        MatSidenavModule
+        MatSidenavModule,
+        MatRippleModule
     ],
     providers: []
 })
