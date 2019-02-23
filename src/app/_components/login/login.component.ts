@@ -51,6 +51,8 @@ export class LoginComponent implements OnInit {
         .pipe(
           take(1)
         ).subscribe((res: any) => {
+          this.authServ.decodeToken(res.data);
+
           this._router.navigate(['/tabs']).then(() => this.submitButton = false);
         }, (err: any) => {
           this.submitButton = false;

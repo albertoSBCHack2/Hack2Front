@@ -16,7 +16,10 @@ import {
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatProgressBarModule,
-    MatRippleModule
+    MatRippleModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
 } from '@angular/material';
 import { LayoutModule } from '../../../node_modules/@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule } from '../../../node_modules/@angular/forms';
@@ -47,7 +50,10 @@ import { RouterModule } from '../../../node_modules/@angular/router';
         MatProgressSpinnerModule,
         MatProgressBarModule,
         MatSidenavModule,
-        MatRippleModule
+        MatRippleModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule
     ],
     exports: [
         FormsModule,
@@ -69,7 +75,10 @@ import { RouterModule } from '../../../node_modules/@angular/router';
         MatProgressSpinnerModule,
         MatProgressBarModule,
         MatSidenavModule,
-        MatRippleModule
+        MatRippleModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule
     ],
     providers: []
 })

@@ -9,8 +9,8 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class TabsComponent implements OnInit {
 
   public navLinks: any = [
-    { path: '', label: 'Mis cuentas' },
-    { path: '', label: 'Mis padrinos' },
+    { path: 'cuentas', label: 'Mis cuentas' },
+    { path: 'padrinos', label: 'Mis padrinos' },
     { path: '', label: 'Mis ahijados' }
   ];
 
