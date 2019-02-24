@@ -2,6 +2,7 @@ import { Component, OnInit, ɵConsole } from '@angular/core';
 import { PadrinosService } from './padrinos.service';
 import { take } from 'rxjs/operators';
 import { ErrorDialogComponent } from '../_dialogs/error-dialog/error-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-padrinos',
@@ -9,21 +10,25 @@ import { ErrorDialogComponent } from '../_dialogs/error-dialog/error-dialog.comp
   styleUrls: ['./padrinos.component.scss']
 })
 export class PadrinosComponent implements OnInit {
-  displayedColumns: string[] = ['idUsuario', 'nombre'];
+  displayedColumns: string[] = ['nombre'];
   // dataSource = ELEMENT_DATA;
   public godfathers: any = []
-  dialog: any;
+  // private dialog: MatDialog
   constructor(
-    private padrinosService: PadrinosService
+    private padrinosService: PadrinosService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
-    this.getGodfathers();
+    if (+localStorage.getItem('idRol') == 1) {
+      this.getGodsons();
+    } else {
+      this.getGodfathers();
+    }
   }
 
   public getGodfathers(): void {
-    // this.loadingLenders = true;
-    this.padrinosService.getAll()
+    this.padrinosService.getAllGodfathers(+localStorage.getItem('idUsuario'))
     .pipe(
       take(1)
     ).subscribe((res: any) => {
@@ -34,22 +39,19 @@ export class PadrinosComponent implements OnInit {
         data: err.error.error.message
       });
     });
-    //console.log(this.godfathers);
-    // let subscription: Subscription = this.accountService
-    //   .getLenderReservedActive()
-    //   .subscribe(
-    //     response => {
-    //       this.lenderReservedActive = response;
-    //     },
-    //     (error) => {
-    //       // this.app.showError(error);
-    //       // this.loadingLenders = false;
-    //       subscription.unsubscribe();
-    //     }, () => {
-    //       // this.loadingLenders = false;
-    //       subscription.unsubscribe();
-    //     }
-    //   );
+  }
+  public getGodsons(): void {
+    this.padrinosService.getAllGodsons(+localStorage.getItem('idUsuario'))
+    .pipe(
+      take(1)
+    ).subscribe((res: any) => {
+      this.godfathers = res.data;
+    }, (err: any) => {
+      this.dialog.open(ErrorDialogComponent, {
+        width: '400px',
+        data: err.error.error.message
+      });
+    });
   }
 
 

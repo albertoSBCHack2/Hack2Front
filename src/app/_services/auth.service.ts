@@ -30,6 +30,7 @@ export class AuthService {
     localStorage.setItem('token', token);
     const decodeToken = jwt_decode(token);
     localStorage.setItem('idUsuario', decodeToken.data.idUsuario);
+    localStorage.setItem('idRol', decodeToken.data.idRol);
 
     this.token = token;
     this.idUsuario = decodeToken.data.idUsuario;

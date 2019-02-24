@@ -4,13 +4,15 @@ import { CommonModule } from '@angular/common';
 
 import { PadrinosRoutingModule } from './padrinos-routing.module';
 import { PadrinosComponent } from './padrinos.component';
+import { ErrorDialogModule } from '../_dialogs/error-dialog/error-dialog.module';
 
 @NgModule({
   declarations: [PadrinosComponent],
   imports: [
     CommonModule,
     PadrinosRoutingModule,
-    MaterialComponentsModule
+    MaterialComponentsModule,
+    ErrorDialogModule
   ]
 })
 export class PadrinosModule { }

@@ -81,6 +81,8 @@ export class RetosComponent implements OnInit {
   }
 
   public showForm(): void {
+    this.showButton = !this.showButton;
+    this.showBackButton = !this.showBackButton;
     this.showFormChallenge = !this.showFormChallenge;
   }
   // public getGodsonschallenges(): void {
