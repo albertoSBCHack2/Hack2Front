@@ -57,8 +57,11 @@ export class RetosComponent implements OnInit {
   }
 
   private saveChallenges = (ownerFormValue) => {
+
+    console.log(ownerFormValue.banco)
     let challenge: any = {
-      idCuenta: ownerFormValue.banco,
+      idCuenta: ownerFormValue.banco.idCuenta,
+      idBanco: ownerFormValue.banco.idBanco,
       monto: ownerFormValue.monto,
       bono: ownerFormValue.bono,
       diasDelReto: ownerFormValue.diasDelReto

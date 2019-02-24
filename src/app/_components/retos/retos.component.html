@@ -44,7 +44,7 @@
           <mat-option [value]="3">
             Banregio
           </mat-option> -->
-          <mat-option *ngFor="let cuenta of cuentas" [value]="cuenta.idCuenta">
+          <mat-option *ngFor="let cuenta of cuentas" [value]="cuenta">
             {{cuenta.idBanco == 1 ? 'HSBC' : cuenta.idBanco == 2 ? 'FinLab' : cuenta.idBanco == 3 ? 'Banregio' : 'Sin banco'}} - {{cuenta.numCuenta}}
           </mat-option>
         </mat-select>
