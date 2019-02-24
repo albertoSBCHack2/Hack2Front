@@ -44,7 +44,7 @@ export class CuentasComponent implements OnInit {
     this.cuentasServ.getDataCuenta(token, idUsuario, idBanco);
   }
 
-  onAsociar(idBanco: number) {
+  onAsociar() {
     this.dialog.open(AsociarCuentaDialogComponent, {
       width: '400px',
       data: this.idBanco
