@@ -1,0 +1,100 @@
+<div class="example-button-row" style="margin:10px 0px 10px 10px" *ngIf="showButton">
+  <button mat-mini-fab style="background-color:#21ba45" (click)="showForm();">
+      <mat-icon aria-label="Example icon-button with a heart icon" style="color: #fff;">add</mat-icon>
+    </button>
+</div>
+<table mat-table [dataSource]="challenges" class="mat-elevation-z8" *ngIf="!showFormChallenge">
+
+  <ng-container matColumnDef="nombrePadrino">
+    <th mat-header-cell *matHeaderCellDef> Padrino </th>
+    <td mat-cell *matCellDef="let element"> {{element.nombrePadrino}} </td>
+  </ng-container>
+  <ng-container matColumnDef="monto">
+    <th mat-header-cell *matHeaderCellDef> Monto </th>
+    <td mat-cell *matCellDef="let element"> {{element.monto}} </td>
+  </ng-container>
+  <ng-container matColumnDef="bono">
+    <th mat-header-cell *matHeaderCellDef> Bono </th>
+    <td mat-cell *matCellDef="let element"> {{element.bono}} </td>
+  </ng-container>
+  <ng-container matColumnDef="fecCaducidad">
+    <th mat-header-cell *matHeaderCellDef> Fecha Caducidad </th>
+    <td mat-cell *matCellDef="let element"> {{element.fecCaducidad}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<div class="example-button-row" style="margin:10px 0px 10px 10px" *ngIf="showBackButton">
+  <button mat-mini-fab style="background-color:#21ba45" (click)="showForm();">
+      <mat-icon aria-label="Example icon-button with a heart icon" style="color: #fff;">add</mat-icon>
+    </button>
+</div>
+<div class="example-container" *ngIf="showFormChallenge">
+  <form class="example-container-form" [formGroup]="ownerForm"  fxLayout="column wrap"
+      fxLayoutAlign="center center" fxLayoutGap="10px">
+      <mat-form-field >
+        <mat-select placeholder="Banco" formControlName="banco">
+          <mat-option [value]="1">
+            HSBC
+          </mat-option>
+          <mat-option [value]="2">
+            FinLab
+          </mat-option>
+          <mat-option [value]="3">
+            Banregio
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Monto" formControlName="monto">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Abono" formControlName="abono">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Días del reto" formControlName="diasDelReto">
+      </mat-form-field>
+
+      <!-- <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date of birth" formControlName="fechaCaducidad" id="dateOfBirth"
+            readonly (click)="picker.open()">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field> -->
+      <div class="example-button-row">
+        <button mat-raised-button style="background-color:#21ba45; color:#fff" (click)="saveChallenges(ownerForm.value)">Primary</button>
+      </div>
+  </form>
+
+</div>
+
+  <!-- <h4>Banco</h4>
+  <mat-form-field>
+    <mat-select placeholder="Seleccione...">
+      <mat-option [value]="1">
+        HSBC
+      </mat-option>
+      <mat-option [value]="2">
+        FinLab
+      </mat-option>
+      <mat-option [value]="3">
+        Banregio
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Monto" type="number" class="example-right-align">
+    <span matPrefix>$&nbsp;</span>
+    <span matSuffix>.00</span>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Abono" type="number" class="example-right-align">
+    <span matPrefix>$&nbsp;</span>
+    <span matSuffix>.00</span>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field> -->
