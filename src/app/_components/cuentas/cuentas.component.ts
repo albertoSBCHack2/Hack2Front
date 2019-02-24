@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { AsociarCuentaDialogComponent } from '../_dialogs/asociar-cuenta-dialog/asociar-cuenta-dialog.component';
 import { TransferenciaDialogComponent } from '../_dialogs/transferencia-dialog/transferencia-dialog.component';
 import { formAnimation } from 'src/app/_animations/animatios';
+import { take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cuentas',
@@ -22,6 +24,7 @@ export class CuentasComponent implements OnInit {
   @ViewChild(MatSort) sortData: MatSort;
   public idBanco: number;
   public hideEl = false;
+  public retos$: Observable<any>;
 
   public logosURL = [
     'data:image/png;base64,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',
@@ -52,6 +55,7 @@ export class CuentasComponent implements OnInit {
     const token = !this.authService.token ? localStorage.getItem('token') : this.authService.token;
 
     this.cuentasServ.getDataCuenta(token, idUsuario, idBanco);
+    this.retos$ = this.cuentasServ.getRetos();
   }
 
   onAsociar() {
@@ -88,6 +92,7 @@ export class CuentasComponent implements OnInit {
     setTimeout(() => {
       this.idBanco = undefined;
       this.hideEl = false;
+      this.retos$ = undefined;
     }, 340);
   }
 

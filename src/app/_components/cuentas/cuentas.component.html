@@ -38,9 +38,9 @@
     </button>
   </div>
 
-  <div class="aviso" *ngIf="false">
+  <div class="aviso" *ngIf="retos$ | async as retos">
     <p class="mat-body-1">
-      <mat-icon>whatshot</mat-icon>$1,200
+      <mat-icon>whatshot</mat-icon>{{retos.data[0].saldoEnReto | currency}}
     </p>
   </div>
 
