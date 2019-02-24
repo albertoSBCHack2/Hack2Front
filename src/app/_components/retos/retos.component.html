@@ -3,7 +3,7 @@
       <mat-icon aria-label="Example icon-button with a heart icon" style="color: #fff;">add</mat-icon>
     </button>
 </div>
-<table mat-table [dataSource]="challenges" class="mat-elevation-z8" *ngIf="!showFormChallenge">
+<table mat-table [dataSource]="challenges" *ngIf="!showFormChallenge"> <!--class="mat-elevation-z8"-->
 
   <ng-container matColumnDef="nombrePadrino">
     <th mat-header-cell *matHeaderCellDef> Padrino </th>
@@ -30,7 +30,7 @@
       <mat-icon aria-label="Example icon-button with a heart icon" style="color: #fff;">replay</mat-icon>
     </button>
 </div>
-<div class="example-container" *ngIf="showFormChallenge && cuentas.length">
+<div class="example-container" *ngIf="showFormChallenge && cuentas.length" style="padding: 0 16px;">
   <form class="example-container-form" [formGroup]="ownerForm"  fxLayout="column wrap"
       fxLayoutAlign="center center" fxLayoutGap="10px">
       <mat-form-field >

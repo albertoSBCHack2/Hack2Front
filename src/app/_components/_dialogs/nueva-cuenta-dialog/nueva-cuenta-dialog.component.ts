@@ -44,17 +44,17 @@ export class NuevaCuentaDialogComponent implements OnInit {
 
       this.submit = true;
 
-      // this.cuentasServ.transferir(this.form.value)
-      //   .pipe(
-      //     take(1)
-      //   ).subscribe((res: any) => {
-      //     this.dialogRef.close();
-      //   }, (err: any) => {
-      //     this.submit = false;
-      //     this.snack.open(err.error.error.message, 'OK', {
-      //       duration: 2800
-      //     });
-      //   });
+      this.cuentasServ.newFinlabAccount(this.form.value)
+        .pipe(
+          take(1)
+        ).subscribe((res: any) => {
+          this.dialogRef.close();
+        }, (err: any) => {
+          this.submit = false;
+          this.snack.open(err.error.error.message, 'OK', {
+            duration: 2800
+          });
+        });
     }
   }
 
