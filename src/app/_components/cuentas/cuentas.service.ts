@@ -112,7 +112,7 @@ export class CuentasService {
       })
     };
 
-    return this.http.get<any>(`https://hack2-api.kobra.red/api/retos?idBanco=${idBanco}`, httpOptions);
+    return this.http.get<any>(`https://hack2-api.kobra.red/api/retos?idBanco=${idBanco}&vigente=true`, httpOptions);
   }
 
   getPush() {
