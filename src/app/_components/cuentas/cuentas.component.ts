@@ -88,7 +88,8 @@ export class CuentasComponent implements OnInit {
     ref.afterClosed().toPromise().then(() => {
       const idUsuario = !this.authService.idUsuario ? localStorage.getItem('idUsuario') : this.authService.idUsuario;
       const token = !this.authService.token ? localStorage.getItem('token') : this.authService.token;
-
+      this.isGodson = false;
+      this.isGodfather = false;
       this.cuentasServ.getDataCuenta(token, idUsuario, this.idBanco);
     });
   }
