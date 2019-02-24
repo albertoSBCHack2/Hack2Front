@@ -44,7 +44,7 @@
     </p>
   </div>
 
-  <mat-divider *ngIf="idButon"></mat-divider>
+  <mat-divider *ngIf="idBanco"></mat-divider>
 
   <div [hidden]="!hideEl">
     <mat-table [dataSource]="dataSource" matSort matSortActive="numCuenta" matSortDirection="asc"
@@ -66,7 +66,7 @@
 
       <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
 
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row @formAnimation *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 
     <div class="table-info" *ngIf="!cuentasServ.dataLength || cuentasServ.dataLoading">
