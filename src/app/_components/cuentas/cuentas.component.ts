@@ -5,11 +5,13 @@ import { MatPaginator, MatSort, MatDialog, MatDialogRef } from '@angular/materia
 import { AuthService } from 'src/app/_services/auth.service';
 import { AsociarCuentaDialogComponent } from '../_dialogs/asociar-cuenta-dialog/asociar-cuenta-dialog.component';
 import { TransferenciaDialogComponent } from '../_dialogs/transferencia-dialog/transferencia-dialog.component';
+import { formAnimation } from 'src/app/_animations/animatios';
 
 @Component({
   selector: 'app-cuentas',
   templateUrl: './cuentas.component.html',
-  styleUrls: ['./cuentas.component.scss']
+  styleUrls: ['./cuentas.component.scss'],
+  animations: [formAnimation]
 })
 export class CuentasComponent implements OnInit {
 
@@ -81,8 +83,12 @@ export class CuentasComponent implements OnInit {
   }
 
   changeBanco() {
-    this.idBanco = undefined;
-    this.hideEl = false;
+    this.cuentasServ.dataChange.next([]);
+
+    setTimeout(() => {
+      this.idBanco = undefined;
+      this.hideEl = false;
+    }, 340);
   }
 
 }
