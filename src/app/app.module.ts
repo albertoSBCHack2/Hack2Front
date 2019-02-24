@@ -8,10 +8,12 @@ import 'hammerjs';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressBarModule, GestureConfig } from '@angular/material';
 import { ErrorDialogModule } from './_components/_dialogs/error-dialog/error-dialog.module';
+// import { CustomSnackBarComponent } from './_components/custom-snack-bar/custom-snack-bar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    // CustomSnackBarComponent
   ],
   imports: [
     BrowserModule,

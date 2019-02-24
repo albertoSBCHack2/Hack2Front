@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth.service';
 import { CuentasService } from '../cuentas/cuentas.service';
 import { take } from 'rxjs/operators';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatSnackBar, MatDialog, MatSnackBarConfig } from '@angular/material';
 import { ErrorDialogComponent } from '../_dialogs/error-dialog/error-dialog.component';
+import { CustomSnackBarComponent } from '../custom-snack-bar/custom-snack-bar.component';
 
 @Component({
   selector: 'app-tabs',
@@ -36,6 +37,12 @@ export class TabsComponent implements OnInit {
     this.stop();
     this.authServ.logout();
   }
+//   showCustomSnackbar(snackbarContent: string) {
+//     let config = new MatSnackBarConfig();
+//     config.panelClass = 'center';
+//     let snackbarRef = this.snack.openFromComponent(CustomSnackBarComponent,config);
+//     snackbarRef.instance.customSnackBarContent = snackbarContent;
+// }
 
   playReal() {
     if (!this.real) {
@@ -44,6 +51,7 @@ export class TabsComponent implements OnInit {
           .pipe(
             take(1)
           ).subscribe((res: any) => {
+            // this.showCustomSnackbar('HEEEYYY');
             if (res.data) {
               this.snack.open(res.data.mensaje, 'OK', {
                 horizontalPosition: 'center',
