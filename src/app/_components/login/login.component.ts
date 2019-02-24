@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/_services/auth.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { ErrorDialogComponent } from '../_dialogs/error-dialog/error-dialog.component';
 
 @Component({
@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
     private _fb: FormBuilder,
     private _router: Router,
     private authServ: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snack: MatSnackBar
   ) {
 
     this.loginForm = this._fb.group(
@@ -53,7 +54,14 @@ export class LoginComponent implements OnInit {
         ).subscribe((res: any) => {
           this.authServ.decodeToken(res.data);
 
-          this._router.navigate(['/tabs']).then(() => this.submitButton = false);
+          this._router.navigate(['/tabs']).then(() => {
+            this.submitButton = false;
+            setTimeout(() => {
+              this.snack.open(`Bienvenido ${this.authServ.nomUsuario}`, 'OK', {
+                duration: 2800
+              });
+            }, 600);
+          });
         }, (err: any) => {
           this.submitButton = false;
 

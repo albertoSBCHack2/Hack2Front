@@ -43,13 +43,13 @@ export class TabsComponent implements OnInit {
             take(1)
           ).subscribe((res: any) => {
             if (res.data) {
-              this.snack.open('push', 'OK', {
+              this.snack.open(res.data.mensaje, 'OK', {
                 horizontalPosition: 'center',
                 verticalPosition: 'top'
               });
             }
           });
-      }, 1000);
+      }, 3000);
     }
   }
 
