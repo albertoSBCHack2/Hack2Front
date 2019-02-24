@@ -12,6 +12,7 @@ import { take } from 'rxjs/operators';
 export class AsociarCuentaDialogComponent implements OnInit {
 
   public form: FormGroup;
+  public submit = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -37,12 +38,15 @@ export class AsociarCuentaDialogComponent implements OnInit {
   asociar() {
     if (this.form.valid) {
 
+      this.submit = true;
+
       this.cuentasServ.asociarCuenta(this.form.value)
         .pipe(
           take(1)
         ).subscribe((res: any) => {
           this.dialogRef.close();
         }, (err: any) => {
+          this.submit = false;
           this.snack.open(err.error.error.message, 'OK', {
             duration: 2800
           });

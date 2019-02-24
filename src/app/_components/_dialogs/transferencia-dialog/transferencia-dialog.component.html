@@ -1,25 +1,43 @@
 <p mat-dialog-title>Transferir</p>
 
-<mat-dialog-content [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="transferir()">
+  <mat-dialog-content>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Monto</mat-label>
-    <input matInput placeholder="Ingre el monto" formControlName="transactionAmount" required>
-    <button type="button" mat-button *ngIf="form.controls['transactionAmount'].value" matSuffix mat-icon-button
-      (click)="form.controls['transactionAmount'].reset()">
-      <mat-icon>close</mat-icon>
-    </button>
-    <mat-error *ngIf="form.controls['transactionAmount'].invalid">Campo requerido</mat-error>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Cuenta origen" formControlName="sourceAccount"  required>
+        <mat-option *ngFor="let cuenta of data" [value]="cuenta.accountNumber">
+          {{cuenta.accountNumber}} - {{cuenta.saldo | currency}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls['sourceAccount'].invalid">Campo requerido</mat-error>
+    </mat-form-field>
 
-  <mat-form-field style="width: 100%;">
-    <textarea matInput placeholder="description" formControlName="description"></textarea>
-    <mat-error *ngIf="form.controls['description'].invalid">Campo requerido</mat-error>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Cuenta destino" formControlName="destinationAccount"  required>
+        <mat-option *ngFor="let cuenta of data" [value]="cuenta.accountNumber">
+          {{cuenta.accountNumber}} - {{cuenta.saldo | currency}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls['destinationAccount'].invalid">Campo requerido</mat-error>
 
-</mat-dialog-content>
+    </mat-form-field>
 
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close color="primary">CANCELAR</button>
-  <button mat-button (click)="transferir()" color="primary">OK</button>
-</mat-dialog-actions>
+    <mat-form-field appearance="outline">
+      <mat-label>Monto</mat-label>
+      <input matInput placeholder="Ingresa el monto" formControlName="transactionAmount" required>
+      <mat-error *ngIf="form.controls['transactionAmount'].invalid">Campo requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;">
+      <textarea matInput placeholder="Descripción" formControlName="description"  required></textarea>
+      <mat-error *ngIf="form.controls['description'].invalid">Campo requerido</mat-error>
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button type="button" mat-button mat-dialog-close color="primary" [disabled]="submit">CANCELAR</button>
+    <button type="submit" mat-button color="primary" [disabled]="submit">OK</button>
+  </mat-dialog-actions>
+  <mat-progress-bar *ngIf="submit" mode="indeterminate" color="accent"></mat-progress-bar>
+</form>

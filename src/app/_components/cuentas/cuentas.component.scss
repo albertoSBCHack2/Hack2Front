@@ -55,3 +55,33 @@
     margin-top: 32px;
     text-align: center;
 }
+
+.aviso {
+    background-color: red;
+    padding: 12px 0;
+
+    p {
+        color: #fff;
+        background-color: red;
+        font-weight: bold;
+        font-size: 20px;
+        text-align: center;
+        margin: 0;
+    }
+
+    p > mat-icon {
+        margin-right: 12px;
+    }
+}
+
+.logo-selected {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        height: auto;
+        width: 100px;
+    }
+}

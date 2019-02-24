@@ -71,6 +71,17 @@ export class CuentasService {
         });
       });
   }
+  obtenerCuentas() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem('token')
+      })
+    };
+    let idUsuario : number = +localStorage.getItem('idUsuario');
+
+    return this.http.get('https://hack2-api.kobra.red/api/users/' + idUsuario +'/accounts', httpOptions)
+
+  }
 
   asociarCuenta(cuenta: any) {
     const httpOptions = {
@@ -80,6 +91,16 @@ export class CuentasService {
     };
 
     return this.http.post<any>('https://hack2-api.kobra.red/api/accounts', cuenta, httpOptions);
+  }
+
+  transferir(transfer: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem('token')
+      })
+    };
+
+    return this.http.post<any>('https://hack2-api.kobra.red/api/hsbc/transfer', transfer, httpOptions);
   }
 }
 

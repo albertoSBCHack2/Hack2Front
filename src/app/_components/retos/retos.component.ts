@@ -4,6 +4,8 @@ import { take } from 'rxjs/operators';
 import { ErrorDialogComponent } from '../_dialogs/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CuentasService } from '../cuentas/cuentas.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-retos',
   templateUrl: './retos.component.html',
@@ -11,6 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class RetosComponent implements OnInit {
   public challenges: any = [];
+  public cuentas: any = [];
   public showButton: boolean = false;
   public showBackButton: boolean = false;
   public showFormChallenge: boolean = false;
@@ -19,6 +22,8 @@ export class RetosComponent implements OnInit {
   constructor(
     private retosService: RetosService,
     private dialog: MatDialog,
+    public cuentasService: CuentasService,
+    private router: Router
   ) { }
   displayedColumns: string[] = ['nombrePadrino', 'monto', 'bono', 'fecCaducidad'];
 
@@ -30,32 +35,40 @@ export class RetosComponent implements OnInit {
     this.ownerForm = new FormGroup({
       banco: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       monto: new FormControl('', [Validators.required, Validators.maxLength(60)]),
-      abono: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      bono: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       diasDelReto: new FormControl('', [Validators.required, Validators.maxLength(60)])
     });
 
-    // if (+localStorage.getItem('idRol') == 1) {
-    //   console.log(1)
-    // } else {
-    //   console.log(2)
-    //   this.getGodsoncchallenges();
-    // }
+  }
+
+  private obtenerCuentas() {
+    this.cuentasService.obtenerCuentas()
+    .pipe(
+      take(1)
+    ).subscribe((res: any) => {
+      this.cuentas = res.data;
+
+    }, (err: any) => {
+      this.dialog.open(ErrorDialogComponent, {
+        width: '400px',
+        data: err.error.error.message
+      });
+    });
   }
 
   private saveChallenges = (ownerFormValue) => {
     let challenge: any = {
-      banco: ownerFormValue.banco,
+      idCuenta: ownerFormValue.banco,
       monto: ownerFormValue.monto,
-      abono: ownerFormValue.abono,
-      diasDelReto: ownerFormValue.fechaCaducidad
+      bono: ownerFormValue.bono,
+      diasDelReto: ownerFormValue.diasDelReto
     }
-    console.log(challenge)
     this.retosService.saveChallenges(challenge)
     .pipe(
       take(1)
     ).subscribe((res: any) => {
-      console.log(res.data)
-      //regresar
+      this.router.navigate(['/tabs/cuentas']);
+
     }, (err: any) => {
       this.dialog.open(ErrorDialogComponent, {
         width: '400px',
@@ -69,10 +82,8 @@ export class RetosComponent implements OnInit {
     .pipe(
       take(1)
     ).subscribe((res: any) => {
-      console.log(res.data)
       this.challenges = res.data;
     }, (err: any) => {
-      console.log(err);
       this.dialog.open(ErrorDialogComponent, {
         width: '400px',
         data: err.error.error.message
@@ -82,21 +93,12 @@ export class RetosComponent implements OnInit {
 
   public showForm(): void {
     this.showButton = !this.showButton;
-    this.showBackButton = !this.showBackButton;
     this.showFormChallenge = !this.showFormChallenge;
+    if (this.showFormChallenge) {
+        this.obtenerCuentas();
+    } else {
+      this.cuentas = [];
+    }
+    this.showBackButton = !this.showBackButton;
   }
-  // public getGodsonschallenges(): void {
-  //   this.retosService.getAllGodsons(+localStorage.getItem('idUsuario'))
-  //   .pipe(
-  //     take(1)
-  //   ).subscribe((res: any) => {
-  //     this.challegesGodFather = res.data;
-  //   }, (err: any) => {
-  //     this.dialog.open(ErrorDialogComponent, {
-  //       width: '400px',
-  //       data: err.error.error.message
-  //     });
-  //   });
-  // }
-
 }

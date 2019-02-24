@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { CuentasService } from '../../cuentas/cuentas.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-transferencia-dialog',
@@ -11,6 +12,7 @@ import { CuentasService } from '../../cuentas/cuentas.service';
 export class TransferenciaDialogComponent implements OnInit {
 
   public form: FormGroup;
+  public submit = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -35,7 +37,22 @@ export class TransferenciaDialogComponent implements OnInit {
   }
 
   transferir() {
-    this.dialogRef.close();
+    if (this.form.valid) {
+
+      this.submit = true;
+
+      this.cuentasServ.transferir(this.form.value)
+        .pipe(
+          take(1)
+        ).subscribe((res: any) => {
+          this.dialogRef.close();
+        }, (err: any) => {
+          this.submit = false;
+          this.snack.open(err.error.error.message, 'OK', {
+            duration: 2800
+          });
+        });
+    }
   }
 
 }

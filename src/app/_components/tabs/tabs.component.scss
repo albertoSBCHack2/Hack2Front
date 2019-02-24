@@ -6,3 +6,15 @@
 .spacer {
     flex: 1 1 auto;
 }
+
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.img-footer {
+  height: auto;
+  width: 88px;
+  margin: 0 auto;
+}
