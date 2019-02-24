@@ -45,7 +45,7 @@ export class CuentasService {
         distinctUntilChanged(),
         map(res => {
           if (!res.data) {
-              this.dataLoading = false;
+            this.dataLoading = false;
           }
           return res.data;
         })
@@ -93,9 +93,9 @@ export class CuentasService {
         'Authorization': localStorage.getItem('token')
       })
     };
-    let idUsuario : number = +localStorage.getItem('idUsuario');
+    const idUsuario: number = +localStorage.getItem('idUsuario');
 
-    return this.http.get('https://hack2-api.kobra.red/api/users/' + idUsuario +'/accounts', httpOptions)
+    return this.http.get('https://hack2-api.kobra.red/api/users/' + idUsuario + '/accounts', httpOptions);
 
   }
 
@@ -137,6 +137,16 @@ export class CuentasService {
     };
 
     return this.http.get<any>(`https://hack2-api.kobra.red/api/push-notifications`, httpOptions);
+  }
+
+  newFinlabAccount(newAc: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem('token')
+      })
+    };
+
+    return this.http.post<any>(`https://hack2-api.kobra.red/api/fin-lab/account/level2`, newAc, httpOptions);
   }
 }
 
