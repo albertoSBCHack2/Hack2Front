@@ -115,15 +115,15 @@ export class CuentasService {
     return this.http.get<any>(`https://hack2-api.kobra.red/api/retos?idBanco=${idBanco}`, httpOptions);
   }
 
-  // getPush() {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Authorization': localStorage.getItem('token')
-  //     })
-  //   };
-  //
-  //   return this.http.get<any>(`https://hack2-api.kobra.red/api/push-notifications`, httpOptions);
-  // }
+  getPush() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem('token')
+      })
+    };
+
+    return this.http.get<any>(`https://hack2-api.kobra.red/api/push-notifications`, httpOptions);
+  }
 }
 
 export class CuentaDataSource extends DataSource<any> {

@@ -35,23 +35,23 @@ export class TabsComponent implements OnInit {
     this.authServ.logout();
   }
 
-  // playReal() {
-  //   if (!this.real) {
-  //     this.real = setInterval(() => {
-  //       this.cuentasServ.getPush()
-  //         .pipe(
-  //           take(1)
-  //         ).subscribe((res: any) => {
-  //           if (res.data) {
-  //             this.snack.open('push', 'OK', {
-  //               horizontalPosition: 'center',
-  //               verticalPosition: 'top'
-  //             });
-  //           }
-  //         });
-  //     }, 1000);
-  //   }
-  // }
+  playReal() {
+    if (!this.real) {
+      this.real = setInterval(() => {
+        this.cuentasServ.getPush()
+          .pipe(
+            take(1)
+          ).subscribe((res: any) => {
+            if (res.data) {
+              this.snack.open(res.data.mensaje, 'OK', {
+                horizontalPosition: 'center',
+                verticalPosition: 'top'
+              });
+            }
+          });
+      }, 3000);
+    }
+  }
 
   stop() {
     clearInterval(this.real);

@@ -11,6 +11,7 @@ export class AuthService {
 
   public token: string;
   public idUsuario: any;
+  public nomUsuario: string;
 
   constructor(
     private http: HttpClient,
@@ -29,10 +30,12 @@ export class AuthService {
   decodeToken(token: any) {
     localStorage.setItem('token', token);
     const decodeToken = jwt_decode(token);
+    localStorage.setItem('nomUsuario', decodeToken.data.nombre);
     localStorage.setItem('idUsuario', decodeToken.data.idUsuario);
     localStorage.setItem('idRol', decodeToken.data.idRol);
 
     this.token = token;
     this.idUsuario = decodeToken.data.idUsuario;
+    this.nomUsuario = decodeToken.data.nombre;
   }
 }
