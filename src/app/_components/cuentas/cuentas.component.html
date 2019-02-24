@@ -40,7 +40,7 @@
 
   <div class="aviso" *ngIf="isGodfather && retos$ | async as retos" [hidden]="retos.data.length <= 0">
     <p class="mat-body-1">
-      <mat-icon>whatshot</mat-icon>{{retos.data[0]?.saldoEnReto | currency}}
+      <mat-icon>whatshot</mat-icon>{{retos.data[0]?.restarPadrino | currency}}
     </p>
   </div>
   <div class="aviso" style="background-color:#21ba45" *ngIf="isGodson && retos$ | async as retos" [hidden]="retos.data.length <= 0">
