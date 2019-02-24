@@ -24,6 +24,8 @@ export class CuentasComponent implements OnInit {
   @ViewChild(MatSort) sortData: MatSort;
   public idBanco: number;
   public hideEl = false;
+  public isGodfather :boolean= false;
+  public isGodson :boolean = false;
   public retos$: Observable<any>;
 
   public logosURL = [
@@ -39,6 +41,10 @@ export class CuentasComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    let idRol :number = +localStorage.getItem('idRol');
+    // if ( ) {
+    // }
+    idRol == 1 ? this.isGodfather = true : this.isGodson = true;
     this.cuentasServ.create();
     this.dataSource = new CuentaDataSource(this.cuentasServ);
 
