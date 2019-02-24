@@ -43,7 +43,9 @@ export class CuentasService {
         take(1),
         distinctUntilChanged(),
         map(res => {
-          this.dataLoading = false;
+          if (!res.data) {
+              this.dataLoading = false;
+          }
           return res.data;
         })
       ).subscribe((res: any) => {
