@@ -27,7 +27,7 @@ export class TabsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.playReal();
+    this.playReal();
   }
 
   onLogout() {
