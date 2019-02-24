@@ -5,15 +5,16 @@ import { MatPaginator, MatSort, MatDialog, MatDialogRef } from '@angular/materia
 import { AuthService } from 'src/app/_services/auth.service';
 import { AsociarCuentaDialogComponent } from '../_dialogs/asociar-cuenta-dialog/asociar-cuenta-dialog.component';
 import { TransferenciaDialogComponent } from '../_dialogs/transferencia-dialog/transferencia-dialog.component';
-import { formAnimation } from 'src/app/_animations/animatios';
+import { formAnimation, elAnimation } from 'src/app/_animations/animatios';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { NuevaCuentaDialogComponent } from '../_dialogs/nueva-cuenta-dialog/nueva-cuenta-dialog.component';
 
 @Component({
   selector: 'app-cuentas',
   templateUrl: './cuentas.component.html',
   styleUrls: ['./cuentas.component.scss'],
-  animations: [formAnimation]
+  animations: [formAnimation, elAnimation]
 })
 export class CuentasComponent implements OnInit {
 
@@ -96,10 +97,23 @@ export class CuentasComponent implements OnInit {
     this.cuentasServ.dataChange.next([]);
 
     setTimeout(() => {
+      this.retos$ = undefined;
       this.idBanco = undefined;
       this.hideEl = false;
-      this.retos$ = undefined;
     }, 340);
+  }
+
+  onNuevaCuenta() {
+    const ref: MatDialogRef<NuevaCuentaDialogComponent> = this.dialog.open(NuevaCuentaDialogComponent, {
+      width: '400px'
+    });
+
+    // ref.afterClosed().toPromise().then(() => {
+    //   const idUsuario = !this.authService.idUsuario ? localStorage.getItem('idUsuario') : this.authService.idUsuario;
+    //   const token = !this.authService.token ? localStorage.getItem('token') : this.authService.token;
+
+    //   this.cuentasServ.getDataCuenta(token, idUsuario, this.idBanco);
+    // });
   }
 
 }

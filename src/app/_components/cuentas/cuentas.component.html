@@ -20,23 +20,26 @@
     </mat-card>
   </div>
 
-  <div *ngIf="idBanco" class="logo-selected">
+  <div *ngIf="idBanco" class="logo-selected" @elAnimation>
     <img [src]="logosURL[idBanco - 1]" alt="">
     <button mat-icon-button color="warn" (click)="changeBanco()">
       <mat-icon>close</mat-icon>
     </button>
   </div>
 
-  <div class="actions-buttons" *ngIf="idBanco">
+  <div class="actions-buttons" *ngIf="idBanco" @elAnimation>
     <button mat-raised-button color="primary" (click)="onAsociar()">
       <mat-icon>add</mat-icon>
     </button>
     <button mat-raised-button color="primary" (click)="onTransferir()">
       <mat-icon>swap_horiz</mat-icon>
     </button>
+    <button mat-raised-button color="primary" (click)="onNuevaCuenta()">
+      <mat-icon>account_circle</mat-icon>
+    </button>
   </div>
 
-  <div class="aviso" *ngIf="isGodfather && retos$ | async as retos" [hidden]="retos.data.length <= 0">
+  <div class="aviso" *ngIf="isGodfather && retos$ | async as retos" [hidden]="retos.data.length <= 0" @elAnimation>
     <p class="mat-body-1">
       <mat-icon>whatshot</mat-icon>{{retos.data[0]?.restarPadrino | currency}}
     </p>
