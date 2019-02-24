@@ -26,16 +26,16 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <div class="example-button-row" style="margin:10px 0px 10px 10px" *ngIf="showBackButton">
-  <button mat-mini-fab style="background-color:#21ba45" (click)="showForm();">
+  <button mat-mini-fab style="background-color: #758078;" (click)="showForm();">
       <mat-icon aria-label="Example icon-button with a heart icon" style="color: #fff;">replay</mat-icon>
     </button>
 </div>
-<div class="example-container" *ngIf="showFormChallenge">
+<div class="example-container" *ngIf="showFormChallenge && cuentas.length">
   <form class="example-container-form" [formGroup]="ownerForm"  fxLayout="column wrap"
       fxLayoutAlign="center center" fxLayoutGap="10px">
       <mat-form-field >
-        <mat-select placeholder="Banco" formControlName="banco">
-          <mat-option [value]="1">
+        <mat-select placeholder="Cuentas" formControlName="banco">
+          <!-- <mat-option [value]="1">
             HSBC
           </mat-option>
           <mat-option [value]="2">
@@ -43,6 +43,9 @@
           </mat-option>
           <mat-option [value]="3">
             Banregio
+          </mat-option> -->
+          <mat-option *ngFor="let cuenta of cuentas" [value]="cuenta">
+            {{cuenta.idBanco == 1 ? 'HSBC' : cuenta.idBanco == 2 ? 'FinLab' : cuenta.idBanco == 3 ? 'Banregio' : 'Sin banco'}} - {{cuenta.numCuenta}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -50,13 +53,13 @@
         <input matInput type="text" placeholder="Monto" formControlName="monto">
       </mat-form-field>
       <mat-form-field>
-        <input matInput type="text" placeholder="Abono" formControlName="abono">
+        <input matInput type="text" placeholder="Bono" formControlName="bono">
       </mat-form-field>
       <mat-form-field>
         <input matInput type="text" placeholder="Días del reto" formControlName="diasDelReto">
       </mat-form-field>
       <div class="example-button-row">
-        <button mat-raised-button style="background-color:#21ba45; color:#fff" (click)="saveChallenges(ownerForm.value)">Primary</button>
+        <button mat-raised-button style="background-color:#21ba45; color:#fff" (click)="saveChallenges(ownerForm.value)">Guardar</button>
       </div>
   </form>
 

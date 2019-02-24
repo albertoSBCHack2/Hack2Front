@@ -28,7 +28,7 @@ export class RetosService {
       })
     };
 
-    return this.httpClient.post('https://hack2-api.kobra.red/api/retos', httpOptions, challenge)
+    return this.httpClient.post('https://hack2-api.kobra.red/api/reto', challenge, httpOptions )
   }
 
 }

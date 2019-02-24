@@ -44,6 +44,7 @@ export class CuentasService {
         take(1),
         distinctUntilChanged(),
         map(res => {
+          this.dataLoading = false;
           return res.data;
         })
       ).subscribe((res: any) => {
@@ -53,6 +54,8 @@ export class CuentasService {
             case 1: url = `https://hack2-api.kobra.red/api/hsbc/checking-accounts/balance?accountNumber=${data.numCuenta}`;
               break;
             case 2: url = `https://hack2-api.kobra.red/api/fin-lab/bank/${data.numCuenta}/balances`;
+              break;
+            case 3: url = `https://hack2-api.kobra.red/api/banregio/accounts/${data.numCuenta}/transancciones`;
               break;
           }
 
@@ -82,6 +85,17 @@ export class CuentasService {
         });
       });
   }
+  obtenerCuentas() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem('token')
+      })
+    };
+    let idUsuario : number = +localStorage.getItem('idUsuario');
+
+    return this.http.get('https://hack2-api.kobra.red/api/users/' + idUsuario +'/accounts', httpOptions)
+
+  }
 
   asociarCuenta(cuenta: any) {
     const httpOptions = {
@@ -100,17 +114,17 @@ export class CuentasService {
       })
     };
 
-    return this.http.post<any>('https://hack2-api.kobra.red/api/hsbc/transfer', transfer, httpOptions);
+    return this.http.post<any>('https://hack2-api.kobra.red/api/transfer', transfer, httpOptions);
   }
 
-  getRetos() {
+  getRetos(idBanco: number) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': localStorage.getItem('token')
       })
     };
 
-    return this.http.get<any>(`https://hack2-api.kobra.red/api/retos`, httpOptions);
+    return this.http.get<any>(`https://hack2-api.kobra.red/api/retos?idBanco=${idBanco}&vigente=true`, httpOptions);
   }
 
   getPush() {
