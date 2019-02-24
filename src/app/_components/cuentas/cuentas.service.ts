@@ -102,7 +102,7 @@ export class CuentasService {
       })
     };
 
-    return this.http.post<any>('https://hack2-api.kobra.red/api/hsbc/transfer', transfer, httpOptions);
+    return this.http.post<any>('https://hack2-api.kobra.red/api/transfer', transfer, httpOptions);
   }
 
   getRetos(idBanco: number) {
