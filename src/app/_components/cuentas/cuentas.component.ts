@@ -55,7 +55,7 @@ export class CuentasComponent implements OnInit {
     const token = !this.authService.token ? localStorage.getItem('token') : this.authService.token;
 
     this.cuentasServ.getDataCuenta(token, idUsuario, idBanco);
-    this.retos$ = this.cuentasServ.getRetos();
+    this.retos$ = this.cuentasServ.getRetos(idBanco);
   }
 
   onAsociar() {
