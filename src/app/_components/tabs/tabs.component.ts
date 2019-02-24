@@ -4,11 +4,13 @@ import { CuentasService } from '../cuentas/cuentas.service';
 import { take } from 'rxjs/operators';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from '../_dialogs/error-dialog/error-dialog.component';
+import { fadeAnimation } from 'src/app/_animations/animatios';
 
 @Component({
   selector: 'app-tabs',
   templateUrl: './tabs.component.html',
-  styleUrls: ['./tabs.component.scss']
+  styleUrls: ['./tabs.component.scss'],
+  animations: [fadeAnimation]
 })
 export class TabsComponent implements OnInit {
   // public idRol: number = +localStorage.getItem('idRol');

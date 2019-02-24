@@ -11,17 +11,17 @@ export const fadeAnimation = trigger('fadeAnimation', [
     transition('* => *', [
         query(
             ':enter',
-            [style({ opacity: 0, position: 'fixed', top: 0, right: 0, left: 0 })],
+            [style({ opacity: 0, position: 'absolute', top: 0, right: 0, left: 0 })],
             { optional: true }
         ),
         query(
             ':leave',
-            [style({ opacity: 1, position: 'fixed', top: 0, right: 0, left: 0 }), animate('0.3s', style({ opacity: 0 }))],
+            [style({ opacity: 1, position: 'absolute', top: 0, right: 0, left: 0 }), animate('0.3s', style({ opacity: 0 }))],
             { optional: true }
         ),
         query(
             ':enter',
-            [style({ opacity: 0, position: 'fixed', top: 0, right: 0, left: 0 }), animate('0.3s', style({ opacity: 1 }))],
+            [style({ opacity: 0, position: 'absolute', top: 0, right: 0, left: 0 }), animate('0.3s', style({ opacity: 1 }))],
             { optional: true }
         )
     ])

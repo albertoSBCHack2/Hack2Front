@@ -36,7 +36,7 @@
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button type="button" mat-button mat-dialog-close color="primary" [disabled]="submit">CANCELAR</button>
+    <button type="button" mat-button [mat-dialog-close]="false" color="primary" [disabled]="submit">CANCELAR</button>
     <button type="submit" mat-button color="primary" [disabled]="submit">OK</button>
   </mat-dialog-actions>
   <mat-progress-bar *ngIf="submit" mode="indeterminate" color="accent"></mat-progress-bar>
