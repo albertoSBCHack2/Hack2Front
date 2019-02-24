@@ -3,7 +3,8 @@ import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { take, map, distinctUntilChanged } from 'rxjs/operators';
 import { DataSource } from '@angular/cdk/table';
-import { PageEvent, Sort } from '@angular/material';
+import { PageEvent, Sort, MatDialog } from '@angular/material';
+import { ErrorDialogComponent } from '../_dialogs/error-dialog/error-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class CuentasService {
   public dataLoading: boolean;
   private flagBanco: number;
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, private dialog: MatDialog) { }
 
   create() {
     this.dataChange = new BehaviorSubject<any>([]);
@@ -67,7 +68,17 @@ export class CuentasService {
               const copiedData: any = this.data.slice();
               copiedData.push(res2);
               this.dataChange.next(copiedData);
+            }, (err: any) => {
+              this.dialog.open(ErrorDialogComponent, {
+                width: '400px',
+                data: err.error.error.message
+              });
             });
+        });
+      }, (err: any) => {
+        this.dialog.open(ErrorDialogComponent, {
+          width: '400px',
+          data: err.error.error.message
         });
       });
   }

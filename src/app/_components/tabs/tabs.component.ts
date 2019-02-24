@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth.service';
 import { CuentasService } from '../cuentas/cuentas.service';
 import { take } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { ErrorDialogComponent } from '../_dialogs/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-tabs',
@@ -23,7 +24,8 @@ export class TabsComponent implements OnInit {
   constructor(
     private authServ: AuthService,
     private cuentasServ: CuentasService,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -48,6 +50,11 @@ export class TabsComponent implements OnInit {
                 verticalPosition: 'top'
               });
             }
+          }, (err: any) => {
+            this.dialog.open(ErrorDialogComponent, {
+              width: '400px',
+              data: err.error.error.message
+            });
           });
       }, 3000);
     }

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import 'hammerjs';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressBarModule, GestureConfig } from '@angular/material';
+import { ErrorDialogModule } from './_components/_dialogs/error-dialog/error-dialog.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { MatProgressBarModule, GestureConfig } from '@angular/material';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    ErrorDialogModule
   ],
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig}
