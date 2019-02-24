@@ -27,7 +27,7 @@
 </table>
 <div class="example-button-row" style="margin:10px 0px 10px 10px" *ngIf="showBackButton">
   <button mat-mini-fab style="background-color:#21ba45" (click)="showForm();">
-      <mat-icon aria-label="Example icon-button with a heart icon" style="color: #fff;">add</mat-icon>
+      <mat-icon aria-label="Example icon-button with a heart icon" style="color: #fff;">replay</mat-icon>
     </button>
 </div>
 <div class="example-container" *ngIf="showFormChallenge">
@@ -55,46 +55,9 @@
       <mat-form-field>
         <input matInput type="text" placeholder="Días del reto" formControlName="diasDelReto">
       </mat-form-field>
-
-      <!-- <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Choose a date of birth" formControlName="fechaCaducidad" id="dateOfBirth"
-            readonly (click)="picker.open()">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field> -->
       <div class="example-button-row">
         <button mat-raised-button style="background-color:#21ba45; color:#fff" (click)="saveChallenges(ownerForm.value)">Primary</button>
       </div>
   </form>
 
 </div>
-
-  <!-- <h4>Banco</h4>
-  <mat-form-field>
-    <mat-select placeholder="Seleccione...">
-      <mat-option [value]="1">
-        HSBC
-      </mat-option>
-      <mat-option [value]="2">
-        FinLab
-      </mat-option>
-      <mat-option [value]="3">
-        Banregio
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Monto" type="number" class="example-right-align">
-    <span matPrefix>$&nbsp;</span>
-    <span matSuffix>.00</span>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Abono" type="number" class="example-right-align">
-    <span matPrefix>$&nbsp;</span>
-    <span matSuffix>.00</span>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field> -->

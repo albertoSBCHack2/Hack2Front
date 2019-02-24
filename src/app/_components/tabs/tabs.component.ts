@@ -7,11 +7,12 @@ import { AuthService } from 'src/app/_services/auth.service';
   styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent implements OnInit {
+  // public idRol: number = +localStorage.getItem('idRol');
 
   public navLinks: any = [
     { path: 'cuentas', label: 'Mis cuentas' },
-    { path: 'padrinos', label: 'Mis padrinos' },
-    { path: '', label: 'Mis ahijados' }
+    { path: 'padrinos', label: +localStorage.getItem('idRol') == 1 ? 'Mis ahijados' : 'Mis padrinos' },
+    { path: 'retos', label: 'Retos' }
   ];
 
   constructor(

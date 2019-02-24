@@ -12,8 +12,21 @@ export class PadrinosService {
   constructor(
     private httpClient: HttpClient,
   ) { }
-  public getAll(): Observable<any> {
-    return this.httpClient.get('https://hack2-api.kobra.red/api/users/2/godfathers', {})
+  public getAllGodfathers(id: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem('token')
+      })
+    };
+    return this.httpClient.get('https://hack2-api.kobra.red/api/users/' + id +'/godfathers', httpOptions)
+  }
+  public getAllGodsons(id: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem('token')
+      })
+    };
+    return this.httpClient.get('https://hack2-api.kobra.red/api/users/' + id +'/godsons', httpOptions)
   }
 
 }
