@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { take, map } from 'rxjs/operators';
+import { take, map, distinctUntilChanged } from 'rxjs/operators';
 import { DataSource } from '@angular/cdk/table';
 import { PageEvent, Sort } from '@angular/material';
 
@@ -10,16 +10,25 @@ import { PageEvent, Sort } from '@angular/material';
 })
 export class CuentasService {
 
-  public cuentadaData: any;
-  public dataChange: BehaviorSubject<any[]>;
-  get data(): any[] { return this.dataChange.value; }
+  public dataChange: BehaviorSubject<any>;
+  get data(): any { return this.dataChange.value; }
   public dataLength: number;
-  public dataLoading = true;
+  public dataLoading: boolean;
+  private flagBanco: number;
 
   constructor(public http: HttpClient) { }
 
+  create() {
+    this.dataChange = new BehaviorSubject<any>([]);
+  }
+
   getDataCuenta(token: any, idUsuario: any, idBanco: number) {
-    this.dataChange = new BehaviorSubject<any[]>([]);
+    if (this.dataLoading && idBanco === this.flagBanco) {
+      return;
+    }
+
+    this.flagBanco = idBanco;
+    this.dataChange.next([]);
     this.dataLength = 0;
     this.dataLoading = true;
 
@@ -29,22 +38,48 @@ export class CuentasService {
       })
     };
 
-    this.http.get<any[]>(`https://hack2-api.kobra.red/api/users/${idUsuario}/accounts?idBanco=${idBanco}`, httpOptions).
+    this.http.get<any>(`https://hack2-api.kobra.red/api/users/${idUsuario}/accounts?idBanco=${idBanco}`, httpOptions).
       pipe(
         take(1),
+        distinctUntilChanged(),
         map(res => {
-          console.log(res);
-          this.dataLoading = false;
-          this.dataLength = res.length;
-          return res;
+          return res.data;
         })
-      ).subscribe((datas: any[]) => {
-        datas.forEach((data: any) => {
-          const copiedData: any[] = this.data.slice();
-          copiedData.push(data);
-          this.dataChange.next(copiedData);
+      ).subscribe((res: any) => {
+        res.forEach((data: any) => {
+          let url: string;
+          switch (idBanco) {
+            case 1: url = `https://hack2-api.kobra.red/api/hsbc/checking-accounts/balance?accountNumber=${data.numCuenta}`;
+              break;
+            case 2: url = `https://hack2-api.kobra.red/api/fin-lab/bank/${data.numCuenta}/balances`;
+              break;
+          }
+
+          this.http.get<any>(url, httpOptions)
+            .pipe(
+              take(1),
+              map(res2 => {
+                this.dataLoading = false;
+                this.dataLength = res.length;
+                return res2.data;
+              })
+            ).subscribe((res2: any) => {
+              const copiedData: any = this.data.slice();
+              copiedData.push(res2);
+              this.dataChange.next(copiedData);
+            });
         });
       });
+  }
+
+  asociarCuenta(cuenta: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem('token')
+      })
+    };
+
+    return this.http.post<any>('https://hack2-api.kobra.red/api/accounts', cuenta, httpOptions);
   }
 }
 
@@ -57,7 +92,7 @@ export class CuentaDataSource extends DataSource<any> {
     super();
   }
 
-  connect(): Observable<any[]> {
+  connect(): Observable<any> {
     return combineLatest(this.cuentaDatabase.dataChange, this.pageChanges, this.sortChanges)
       .pipe(
         map(res => this.processData(res[0], res[1], res[2]))
@@ -65,19 +100,20 @@ export class CuentaDataSource extends DataSource<any> {
   }
 
   disconnect() {
+    this.cuentaDatabase.dataLength = 0;
     this.cuentaDatabase.dataChange.complete();
     this.pageChanges.complete();
     this.sortChanges.complete();
   }
 
-  processData(ventas: any[], currentPage: PageEvent, currentSort: Sort): any[] {
+  processData(data: any, currentPage: PageEvent, currentSort: Sort): any {
     const startIndex = currentPage.pageIndex * currentPage.pageSize;
 
     if (!currentSort.active || currentSort.direction === '') {
-      return ventas.splice(startIndex, currentPage.pageSize);
+      return data.splice(startIndex, currentPage.pageSize);
     }
 
-    return ventas.slice().sort((a: any, b: any) => {
+    return data.slice().sort((a: any, b: any) => {
       const isAsc = currentSort.direction === 'asc';
       switch (currentSort.active) {
         case 'numCuenta': return this.compare(a.numCuenta, b.numCuenta, isAsc);
@@ -86,7 +122,7 @@ export class CuentaDataSource extends DataSource<any> {
     }).splice(startIndex, currentPage.pageSize);
   }
 
-  private compare(a, b, isAsc) {
+  private compare(a: any, b: any, isAsc: any) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 }

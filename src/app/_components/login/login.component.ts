@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     private _fb: FormBuilder,
     private _router: Router,
     private authServ: AuthService,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
 
     this.loginForm = this._fb.group(

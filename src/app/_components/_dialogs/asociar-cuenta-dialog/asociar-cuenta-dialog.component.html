@@ -1,0 +1,18 @@
+<p mat-dialog-title>Asociar cuenta</p>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Asociar número de cuenta</mat-label>
+    <input matInput placeholder="Ingresa el número de cuenta a asociar" formControlName="numCuenta" required>
+    <button type="button" mat-button *ngIf="form.controls['numCuenta'].value" matSuffix mat-icon-button
+      (click)="form.controls['numCuenta'].reset()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-error *ngIf="form.controls['numCuenta'].invalid">Campo requerido</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close color="primary">CANCELAR</button>
+  <button mat-button (click)="asociar()" color="primary">OK</button>
+</mat-dialog-actions>

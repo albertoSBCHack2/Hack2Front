@@ -1,0 +1,25 @@
+<p mat-dialog-title>Transferir</p>
+
+<mat-dialog-content [formGroup]="form">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Monto</mat-label>
+    <input matInput placeholder="Ingre el monto" formControlName="transactionAmount" required>
+    <button type="button" mat-button *ngIf="form.controls['transactionAmount'].value" matSuffix mat-icon-button
+      (click)="form.controls['transactionAmount'].reset()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-error *ngIf="form.controls['transactionAmount'].invalid">Campo requerido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%;">
+    <textarea matInput placeholder="description" formControlName="description"></textarea>
+    <mat-error *ngIf="form.controls['description'].invalid">Campo requerido</mat-error>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close color="primary">CANCELAR</button>
+  <button mat-button (click)="transferir()" color="primary">OK</button>
+</mat-dialog-actions>

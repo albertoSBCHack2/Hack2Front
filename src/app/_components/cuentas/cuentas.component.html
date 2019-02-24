@@ -19,18 +19,33 @@
     </mat-card>
   </div>
 
+  <div class="actions-buttons">
+    <button mat-raised-button color="primary" (click)="onAsociar()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-raised-button color="primary" (click)="onTransferir()">
+      <mat-icon>swap_horiz</mat-icon>
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
   <div>
     <mat-table [dataSource]="dataSource" matSort matSortActive="numCuenta" matSortDirection="asc"
       (matSortChange)="dataSource.sortChanges.next($event)">
 
       <ng-container matColumnDef="numCuenta">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Número de Cuenta </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>
+          <mat-icon>person_outline</mat-icon>
+        </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.numCuenta}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="saldo">
-        <mat-header-cell *matHeaderCellDef> Saldo </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.saldo}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef>
+          <mat-icon>local_atm</mat-icon>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.saldo | currency}} </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
@@ -40,9 +55,8 @@
 
     <div class="table-info" *ngIf="!cuentasServ.dataLength || cuentasServ.dataLoading">
       <mat-spinner style="margin: auto;" *ngIf="cuentasServ.dataLoading"></mat-spinner>
-      <p class="mat-headline" *ngIf="!cuentasServ.dataLoading">No hay registros
-        <span class="mat-headline" *ngIf="searchValue">para '{{searchValue}}'</span>
-      </p>
+      <p class="mat-headline" style="text-align: center;" *ngIf="!cuentasServ.dataLoading">
+        {{cuentasServ.dataLength != 0 ? 'Selecciona un banco' : 'No hay registros'}}</p>
     </div>
 
     <mat-paginator [length]="cuentasServ.dataLength" [pageIndex]="0" [pageSize]="10"
