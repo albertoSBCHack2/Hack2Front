@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import glider from 'glider-js';
 import { CuentaDataSource, CuentasService } from './cuentas.service';
-import { MatPaginator, MatSort, MatDialog, MatDialogRef } from '@angular/material';
+import { MatPaginator, MatSort, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { AuthService } from 'src/app/_services/auth.service';
 import { AsociarCuentaDialogComponent } from '../_dialogs/asociar-cuenta-dialog/asociar-cuenta-dialog.component';
 import { TransferenciaDialogComponent } from '../_dialogs/transferencia-dialog/transferencia-dialog.component';
@@ -25,8 +25,8 @@ export class CuentasComponent implements OnInit {
   @ViewChild(MatSort) sortData: MatSort;
   public idBanco: number;
   public hideEl = false;
-  public isGodfather :boolean= false;
-  public isGodson :boolean = false;
+  public isGodfather: boolean = false;
+  public isGodson: boolean = false;
   public retos$: Observable<any>;
 
   public logosURL = [
@@ -38,11 +38,12 @@ export class CuentasComponent implements OnInit {
   constructor(
     public cuentasServ: CuentasService,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snack: MatSnackBar
   ) { }
 
   ngOnInit() {
-    let idRol :number = +localStorage.getItem('idRol');
+    let idRol: number = +localStorage.getItem('idRol');
     // if ( ) {
     // }
     idRol == 1 ? this.isGodfather = true : this.isGodson = true;
@@ -71,11 +72,13 @@ export class CuentasComponent implements OnInit {
       data: this.idBanco
     });
 
-    ref.afterClosed().toPromise().then(() => {
-      const idUsuario = !this.authService.idUsuario ? localStorage.getItem('idUsuario') : this.authService.idUsuario;
-      const token = !this.authService.token ? localStorage.getItem('token') : this.authService.token;
+    ref.afterClosed().toPromise().then((res: boolean) => {
+      if (res) {
+        const idUsuario = !this.authService.idUsuario ? localStorage.getItem('idUsuario') : this.authService.idUsuario;
+        const token = !this.authService.token ? localStorage.getItem('token') : this.authService.token;
 
-      this.cuentasServ.getDataCuenta(token, idUsuario, this.idBanco);
+        this.cuentasServ.getDataCuenta(token, idUsuario, this.idBanco);
+      }
     });
   }
 
@@ -85,12 +88,14 @@ export class CuentasComponent implements OnInit {
       data: this.cuentasServ.dataChange.value
     });
 
-    ref.afterClosed().toPromise().then(() => {
-      const idUsuario = !this.authService.idUsuario ? localStorage.getItem('idUsuario') : this.authService.idUsuario;
-      const token = !this.authService.token ? localStorage.getItem('token') : this.authService.token;
-      this.isGodson = false;
-      this.isGodfather = false;
-      this.cuentasServ.getDataCuenta(token, idUsuario, this.idBanco);
+    ref.afterClosed().toPromise().then((res: boolean) => {
+      if (res) {
+        const idUsuario = !this.authService.idUsuario ? localStorage.getItem('idUsuario') : this.authService.idUsuario;
+        const token = !this.authService.token ? localStorage.getItem('token') : this.authService.token;
+        this.isGodson = false;
+        this.isGodfather = false;
+        this.cuentasServ.getDataCuenta(token, idUsuario, this.idBanco);
+      }
     });
   }
 
@@ -109,12 +114,20 @@ export class CuentasComponent implements OnInit {
       width: '400px'
     });
 
-    // ref.afterClosed().toPromise().then(() => {
-    //   const idUsuario = !this.authService.idUsuario ? localStorage.getItem('idUsuario') : this.authService.idUsuario;
-    //   const token = !this.authService.token ? localStorage.getItem('token') : this.authService.token;
+    ref.afterClosed().toPromise().then((res: boolean) => {
+      if (res) {
 
-    //   this.cuentasServ.getDataCuenta(token, idUsuario, this.idBanco);
-    // });
+        this.snack.open('Felicidades!! Creaste una cuenta con Fiinlab!!', 'Cool', {
+          duration: 2800
+        });
+
+        const idUsuario = !this.authService.idUsuario ? localStorage.getItem('idUsuario') : this.authService.idUsuario;
+        const token = !this.authService.token ? localStorage.getItem('token') : this.authService.token;
+
+        this.cuentasServ.getDataCuenta(token, idUsuario, this.idBanco);
+
+      }
+    });
   }
 
 }

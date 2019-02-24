@@ -45,7 +45,7 @@ export class TransferenciaDialogComponent implements OnInit {
         .pipe(
           take(1)
         ).subscribe((res: any) => {
-          this.dialogRef.close();
+          this.dialogRef.close(true);
         }, (err: any) => {
           this.submit = false;
           this.snack.open(err.error.error.message, 'OK', {

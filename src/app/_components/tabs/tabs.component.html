@@ -20,8 +20,10 @@
     </nav>
   </div>
 
-  <div style="flex: 1 1 auto">
-    <router-outlet></router-outlet>
+  <div style="flex: 1 1 auto; position: relative;" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+    <!-- <div  style="height: 100%;"> -->
+    <router-outlet #o="outlet"></router-outlet>
+    <!-- </div> -->
   </div>
 
   <div style="flex: 0 1 auto">
