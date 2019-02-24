@@ -12,7 +12,6 @@ export class TabsComponent implements OnInit {
   public navLinks: any = [
     { path: 'cuentas', label: 'Mis cuentas', icon: 'account_balance' },
     { path: 'padrinos', label: +localStorage.getItem('idRol') === 1 ? 'Mis ahijados' : 'Mis padrinos', icon: 'face' },
-    { path: '', label: 'Mis ahijados', icon: 'favorite_border' },
     { path: 'retos', label: 'Retos', icon: 'whatshot' },
   ];
 

@@ -8,6 +8,7 @@ const routes: Routes = [
       { path: 'cuentas', loadChildren: 'src/app/_components/cuentas/cuentas.module#CuentasModule' },
       { path: 'padrinos', loadChildren: 'src/app/_components/padrinos/padrinos.module#PadrinosModule' },
       { path: 'retos', loadChildren: 'src/app/_components/retos/retos.module#RetosModule' },
+      { path: '', redirectTo: '/tabs/cuentas', pathMatch: 'full' }
     ]
   }
 ];

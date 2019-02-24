@@ -1,25 +1,35 @@
-<div>
+<div class="wrapper">
 
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span>MoneyFight</span>
-      <span class="spacer"></span>
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-    </mat-toolbar-row>
-  </mat-toolbar>
+  <div style="flex: 0 1 auto">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <span>MoneyFight</span>
+        <span class="spacer"></span>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
 
-  <nav mat-tab-nav-bar>
-    <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-      [active]="rla.isActive" style="width: 100% !important">
-      <!-- {{link.label}} -->
-      <mat-icon>{{link.icon}}</mat-icon>
-    </a>
-  </nav>
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive" style="width: 100% !important">
+        <!-- {{link.label}} -->
+        <mat-icon>{{link.icon}}</mat-icon>
+      </a>
+    </nav>
+  </div>
 
-  <div>
+  <div style="flex: 1 1 auto">
     <router-outlet></router-outlet>
+  </div>
+
+  <div style="flex: 0 1 auto">
+    <mat-toolbar style="background-color: #fff;">
+      <mat-toolbar-row>
+        <img class="img-footer" src="../../../assets/logos/logo.jpg" alt="">
+      </mat-toolbar-row>
+    </mat-toolbar>
   </div>
 
 </div>

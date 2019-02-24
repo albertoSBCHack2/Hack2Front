@@ -21,7 +21,8 @@ import {
     MatPaginatorModule,
     MatSortModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule
 } from '@angular/material';
 import { LayoutModule } from '../../../node_modules/@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule } from '../../../node_modules/@angular/forms';
@@ -57,7 +58,8 @@ import { RouterModule } from '../../../node_modules/@angular/router';
         MatPaginatorModule,
         MatSortModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatSelectModule
     ],
     exports: [
         FormsModule,
@@ -84,7 +86,8 @@ import { RouterModule } from '../../../node_modules/@angular/router';
         MatPaginatorModule,
         MatSortModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatSelectModule
     ],
     providers: [
     ]

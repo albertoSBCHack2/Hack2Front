@@ -81,6 +81,16 @@ export class CuentasService {
 
     return this.http.post<any>('https://hack2-api.kobra.red/api/accounts', cuenta, httpOptions);
   }
+
+  transferir(transfer: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem('token')
+      })
+    };
+
+    return this.http.post<any>('https://hack2-api.kobra.red/api/hsbc/transfer', transfer, httpOptions);
+  }
 }
 
 export class CuentaDataSource extends DataSource<any> {
